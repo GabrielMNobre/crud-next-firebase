@@ -2,7 +2,7 @@ import Title from "./Title"
 
 interface LayoutProps {
   title: string
-  children: JSX.Element
+  children: JSX.Element | JSX.Element[]
 }
 
 export default function Layout({ title, children } : LayoutProps) {

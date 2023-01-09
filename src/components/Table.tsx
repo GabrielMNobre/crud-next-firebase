@@ -1,4 +1,3 @@
-import { ReactNode } from "react";
 import Cliente from "../core/Cliente";
 import { IconeEdicao, IconeLixo } from "./Icons";
 
