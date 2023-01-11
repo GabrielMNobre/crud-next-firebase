@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+
 interface ButtonProps {
   children: string
   className?: string
@@ -5,9 +7,13 @@ interface ButtonProps {
   onClick?: () => void
 }
 
-
 export default function Button({ children, cor, className, onClick  } : ButtonProps) {
-  const color = cor ?? 'gray';
+  const [color, setColor] = useState<'green' | 'blue' | 'gray'>('gray');
+
+  useEffect(() => {
+    cor && setColor(cor)
+  }, [cor]);
+
   return (
     <button className={`
       bg-gradient-to-r from-${color}-400 to-${color}-700

@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import Cliente from "../core/Cliente";
 import { IconeEdicao, IconeLixo } from "./Icons";
 
@@ -9,7 +10,13 @@ interface TableProps {
 
 export default function Table({ clientes, clienteSelecionado, clienteExcluido } : TableProps) {
   const renderAction = clienteSelecionado || clienteExcluido; 
-
+  const [hydrate, setHydrate] = useState<boolean>(false);
+  useEffect(() => {
+    if (typeof window !== undefined) {
+      setHydrate(true);
+    }
+  }, []);
+  
   function renderHeader() {
     return (
       <tr>
@@ -17,7 +24,7 @@ export default function Table({ clientes, clienteSelecionado, clienteExcluido } 
         <th className="text-left p-4">Nome</th>
         <th className="text-left p-4">Idade</th>
         {
-          renderAction ? <th className="text-center p-4">Ações</th> : false
+          renderAction && hydrate ? <th className="text-center p-4">Ações</th> : false
         }
       </tr>
     );
@@ -67,7 +74,7 @@ export default function Table({ clientes, clienteSelecionado, clienteExcluido } 
             <td className="text-left p-2">{cliente.nome}</td>
             <td className="text-left p-2">{cliente.idade}</td>
             {
-              renderAction ? <td>{ renderActions(cliente) }</td> : false
+              (renderAction && hydrate) ? <td>{ renderActions(cliente) }</td> : false
             }
           </tr>
         );
